@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Joomla API Component" default="build_package" basedir="code">
+	<property name="component.short" value="api" />
+	<property name="component.name" value="com_${component.short}" />
+	<property name="component.admin_path" value="administrator/components/${component.name}" />
+	<property name="component.admin_languages" value="administrator/language/en-GB" />
+	<property name="component.site_path" value="components/${component.name}" />
+
+	<property name="zip.path" value="../phing/packages" />
+	<property name="package.path" value="${zip.path}/${component.name}" />
+
+	<property name="package.name" value="${component.name}.zip" />
+
+	<target name="build_package">
+		<phingcall target="init" />
+		<phingcall target="package_component" />
+	</target>
+
+	<target name="init">
+		<available file="${package.path}" property="package.folder.exists" value="1" />
+		<if>
+			<equals arg1="${package.folder.exists}" arg2="1" />
+			<then>
+				<echo message="Deleting existing package folder..." />
+				<delete dir="${package.path}" />
+			</then>
+		</if>
+
+		<available file="${zip.path}/${package.name}" property="package.zip.exists" value="1" />
+		<if>
+			<equals arg1="${package.zip.exists}" arg2="1" />
+			<then>
+				<echo message="Deleting existing package zip..." />
+				<delete dir="${zip.path}/${package.name}" />
+			</then>
+		</if>
+	</target>
+
+	<target name="package_component">
+		<echo message="Building component..." />
+
+		<!-- admin -->
+		<copy todir="${package.path}/admin">
+			<fileset dir="${component.admin_path}">
+				<exclude name="${component.short}.xml" />
+				<exclude name="script.php" />
+			</fileset>
+		</copy>
+
+		<!-- site -->
+		<copy todir="${package.path}/site">
+			<fileset dir="${component.site_path}"/>
+		</copy>
+
+		<!-- languages -->
+		<copy file="${component.admin_languages}/en-GB.${component.name}.ini" todir="${package.path}/admin/language/en-GB"/>
+		<copy file="${component.admin_languages}/en-GB.${component.name}.sys.ini" todir="${package.path}/admin/language/en-GB"/>
+		<copy file="language/en-GB/en-GB.${component.name}.ini" todir="${package.path}/site/language/en-GB"/>
+
+		<!-- root files -->
+		<copy file="${component.admin_path}/script.php" todir="${package.path}"/>
+		<copy file="${component.admin_path}/${component.short}.xml" todir="${package.path}"/>
+
+		<!-- plugins -->
+		<copy todir="${package.path}/admin/extensions/plugins">
+			<fileset dir="plugins" />
+		</copy>
+		<!-- loop through plugins and and add the language files. uses plugin_folder -->
+		<foreach param="plg_path" absparam="plg_abs_path" target="plugins_folder">
+			<fileset dir="${package.path}/admin/extensions/plugins">
+				<type type="dir" />
+				<depth max="1" min="1" />
+			</fileset>
+		</foreach>
+
+		<zip destfile="${zip.path}/${package.name}" basedir="${package.path}" />
+	</target>
+
+	<!-- called from foreach loop -->
+	<target name="plugins_folder">
+		<echo msg="${plg_abs_path}" />
+		<php expression="str_replace('/', '_', '${plg_path}');" returnProperty="plg_lang_name" />
+		<copy file="${component.admin_languages}/en-GB.plg_${plg_lang_name}.ini" todir="${plg_abs_path}/language/en-GB" />
+		<copy file="${component.admin_languages}/en-GB.plg_${plg_lang_name}.sys.ini" todir="${plg_abs_path}/language/en-GB" />
+	</target>
+</project>

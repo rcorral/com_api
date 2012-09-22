@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="system" method="upgrade">
+	<name>plg_system_api</name>
+	<version>1.0</version>
+	<creationDate>September 2011</creationDate>
+	<author>Brian Edgerton</author>
+	<authorEmail>brian@edgewebworks.com</authorEmail>
+	<authorUrl>http://www.edgewebworks.com</authorUrl>
+	<copyright>2010 Edge Web Works, LLC</copyright>
+	<license>GNU General Public License v2</license>
+	<description>PLG_SYSTEM_API_XML_DESCRIPTION</description>
+
+	<files>
+		<filename plugin="api">api.php</filename>
+	</files>
+
+	<languages folder="languages">
+		<language tag="en-GB">en-GB.plg_system_api.ini</language>
+		<language tag="en-GB">en-GB.plg_system_api.sys.ini</language>
+	</languages>
+	<params>
+	</params>
+</extension>
