@@ -39,6 +39,16 @@ It will then ask you for the full path to your site root.  You will then need to
 
 **`Manual Install`**: This is the same concept as using the symlink, except you'll need to copy the component files to your site (or run your site from within the "code" folder) and then run install.mysql.sql.
 
+Plugins and extending
+-----------------------------
+There are various plugins that I have already created and you can find them on the [com_api-plugins](https://github.com/rcorral/com_api-plugins) repo.
+
+Usage example
+-----------------------------
+At the moment there is no SEF plugin to make it a tru RESTful call, so for now calls must look like this:
+/index.php?option=com_api&token=xxxxxx&app=users&resrouce=user
+Depending on your request you may send the parameters through GET,POST,PUT,DELETE
+
 Roadmap
 -----------------------------
 - API/Method documentation
