@@ -18,8 +18,7 @@ The following are the goals of the project:
 
 If you want to make it better
 -----------------------------
-Please feel free to make suggestions for ways to make this framework better or more flexible.  It is already in use on a couple live sites and I plan to keep actively developing for as long as it make sense.  I built it to my own specifications, but I would definitely be interested in suggestions for better ways of doing things. I also plan on porting it to J! 2.5 when I get a chance, so any help with that would be appreciated.
-
+Please feel free to make suggestions for ways to make this framework better or more flexible.  It is already in use on a couple live sites and I plan to keep actively developing for as long as it makes sense. I built it to my own specifications, but I would definitely be interested in suggestions for better ways of doing things.
 
 How do I use it?
 -----------------------------
@@ -45,8 +44,8 @@ There are various plugins that I have already created and you can find them on t
 
 Usage example
 -----------------------------
-At the moment there is no SEF plugin to make it a tru RESTful call, so for now calls must look like this:
-/index.php?option=com_api&token=xxxxxx&app=users&resrouce=user
+At the moment there is no SEF plugin to make it a true RESTful call, so for now calls must look like this:
+/index.php?option=com_api&token=xxxxxx&app=users&resource=user
 Depending on your request you may send the parameters through GET,POST,PUT,DELETE
 
 Roadmap
